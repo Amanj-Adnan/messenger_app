@@ -36,37 +36,17 @@
 
    <div class=" m-2 border border-blue-400"></div>
 
+
   <div class="flex-col w-2/5 ml-10 mt-3 ">
+
     <%if @room.present?%>
       <%= @room.name %>
 
-      <% @room.room_messages.each do |message| %>
-
-       <div class="">
-
-
-         <%if current_user.id == message.user.id %>
-           <div class="flex justify-end mt-2">
-            <span class="border-0 rounded-full py-3 px-4  bg-indigo-500 ">
-
-              <%=message.message %>
-
-            </span>
-           </div>
-
-         <%else %>
-           <div class="flex justify-start mt-2">
-            <span class="border-0 rounded-full py-3 px-4  bg-gray-200 ">
-
-              <%=message.message %>
-
-            </span>
-           </div>
-         <% end %>
-      <% end %>
+        <div  id="room_channel">
+          <%= render  partial: "room_messages/messages" , collection: @room.room_messages , as: :room_message  %>
+        </div>
 
 
-      </div>
 
       <div class="absolute bottom-1 ">
 
@@ -77,10 +57,7 @@
 
 
 
-  <%end %>
-
-
-
+    <%end %>
   </div>
 
 

@@ -56,3 +56,6 @@ gem 'hotwire-rails'
 gem 'devise'
 
 gem "tailwindcss-rails", "~> 0.3.3"
+
+gem "cable_ready", "~> 4.5"
+gem "stimulus_reflex", "~> 3.4"

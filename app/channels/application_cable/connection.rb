@@ -1,8 +1,11 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    # identified_by :current_user
+    identified_by :session_id
     # rescue_from StandardError, with: :report_error
     #
+    def connect
+       self.session_id = request.session.id
+    end
     # def connect
     #   self.current_user = find_verified_user
     # end
@@ -14,6 +17,7 @@ module ApplicationCable
     #     verified_user
     #   else
     #     reject_unauthorized_connection
+    #
     #   end
     # end
     #

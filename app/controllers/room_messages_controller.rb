@@ -1,5 +1,6 @@
 class RoomMessagesController < ApplicationController
   before_action :set_message, only: [:show ,:edit ,:update ,:destroy]
+  include CableReady::Broadcaster
 
   def index
     @room_messages = RoomMessage.all
@@ -24,7 +25,16 @@ class RoomMessagesController < ApplicationController
     @room_message = current_user.room_message.new(room_message_params)
 
 
+
       if @room_message.save
+
+        cable_ready['room_channel'].console_log(message: "Welcome amanj to the site!")
+        cable_ready['room_channel'].insert_adjacent_html(
+          selector: "#room_channel",
+          position: "beforeend",
+          html: render_to_string(partial: "room_messages/messages" ,locals: {room_message:@room_message})
+        )
+        cable_ready.broadcast
          redirect_to room_path( @room_message.room_id)
 
       else
